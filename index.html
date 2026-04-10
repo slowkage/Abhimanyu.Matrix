@@ -8,21 +8,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap');
 
 :root {
-  --ink:      #0e0c0a;
-  --paper:    #f5f0e8;
-  --warm:     #e8dfc8;
-  --accent:   #c4472a;
-  --gold:     #b8960c;
-  --muted:    #8a7f70;
-  --border:   rgba(14,12,10,0.12);
-  --abh:      #c4472a;
-  --han:      #2a6b4a;
-  --peak:     #1a3a6b;
-  --dual:     #4a3a2a;
+  --ink:    #0e0c0a;
+  --paper:  #f5f0e8;
+  --warm:   #e8dfc8;
+  --accent: #c4472a;
+  --gold:   #b8960c;
+  --muted:  #8a7f70;
+  --border: rgba(14,12,10,0.12);
+  --abh:    #c4472a;
+  --han:    #2a6b4a;
+  --peak:   #1a3a6b;
+  --dual:   #4a3a2a;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
@@ -31,606 +30,99 @@ body {
   font-family: 'DM Sans', sans-serif;
   font-size: 15px;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* ── SLIDE SYSTEM ── */
-.deck {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 0 80px 0;
+/* ─── SCROLL REVEAL ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
 }
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+.reveal-delay-6 { transition-delay: 0.6s; }
+
+/* ─── LAYOUT ─── */
+.deck { width: 100%; max-width: 1100px; margin: 0 auto; }
 
 .slide {
-  min-height: 100vh;
   padding: 80px 72px;
   border-bottom: 1px solid var(--border);
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  opacity: 0;
-  transform: translateY(24px);
-  animation: slideIn 0.7s ease forwards;
+  min-height: 100svh;
 }
 
-.slide:nth-child(1)  { animation-delay: 0.1s; }
-.slide:nth-child(2)  { animation-delay: 0.15s; }
-.slide:nth-child(3)  { animation-delay: 0.2s; }
-.slide:nth-child(4)  { animation-delay: 0.25s; }
-.slide:nth-child(5)  { animation-delay: 0.3s; }
-.slide:nth-child(6)  { animation-delay: 0.35s; }
-.slide:nth-child(7)  { animation-delay: 0.4s; }
-.slide:nth-child(8)  { animation-delay: 0.45s; }
-.slide:nth-child(9)  { animation-delay: 0.5s; }
-.slide:nth-child(10) { animation-delay: 0.55s; }
-.slide:nth-child(11) { animation-delay: 0.6s; }
-.slide:nth-child(12) { animation-delay: 0.65s; }
-.slide:nth-child(13) { animation-delay: 0.7s; }
-.slide:nth-child(14) { animation-delay: 0.75s; }
-.slide:nth-child(15) { animation-delay: 0.8s; }
-
-@keyframes slideIn {
-  to { opacity: 1; transform: translateY(0); }
+/* ─── TYPOGRAPHY ─── */
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(44px, 7vw, 96px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.lead {
+  font-size: clamp(16px, 2vw, 19px);
+  line-height: 1.65;
+  color: #2a2520;
+  font-weight: 300;
+}
+.body {
+  font-size: clamp(14px, 1.8vw, 15px);
+  line-height: 1.75;
+  color: #3a3530;
+}
+em {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.08em;
+}
+strong { font-weight: 500; }
 
+/* ─── UI ELEMENTS ─── */
 .slide-num {
   position: absolute;
-  top: 36px;
-  right: 72px;
+  top: 28px;
+  right: 28px;
   font-family: 'DM Mono', monospace;
   font-size: 11px;
   color: var(--muted);
   letter-spacing: 0.12em;
 }
-
 .slide-tag {
   font-family: 'DM Mono', monospace;
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: var(--muted);
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
+.rule        { width: 48px; height: 1.5px; background: var(--ink);    margin: 24px 0; }
+.rule-accent { width: 48px; height: 2px;   background: var(--accent); margin: 20px 0; }
 
-/* ── TYPOGRAPHY ── */
-h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(48px, 6vw, 80px);
-  font-weight: 300;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-}
-
-h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.015em;
-}
-
-h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 26px;
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-.lead {
-  font-size: 19px;
-  line-height: 1.65;
-  color: #2a2520;
-  max-width: 680px;
-  font-weight: 300;
-}
-
-.body {
-  font-size: 15px;
-  line-height: 1.75;
-  color: #3a3530;
-  max-width: 660px;
-}
-
-.accent-text { color: var(--accent); }
-.gold-text   { color: var(--gold); }
-.muted-text  { color: var(--muted); font-style: italic; }
-
-em {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 1.08em;
-}
-
-strong { font-weight: 500; }
-
-/* ── DIVIDERS ── */
-.rule {
-  width: 48px;
-  height: 1.5px;
-  background: var(--ink);
-  margin: 28px 0;
-}
-
-.rule-accent {
-  width: 48px;
-  height: 2px;
-  background: var(--accent);
-  margin: 24px 0;
-}
-
-/* ── COVER SLIDE ── */
-.cover {
-  background: var(--ink);
-  color: var(--paper);
-  min-height: 100vh;
-  justify-content: flex-end;
-  padding-bottom: 100px;
-}
-
-.cover h1 {
-  color: var(--paper);
-  font-size: clamp(52px, 7vw, 96px);
-  max-width: 800px;
-}
-
-.cover .subtitle {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(245,240,232,0.5);
-  margin-top: 32px;
-}
-
-.cover-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 48px;
-}
-
-.cover::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--accent);
-}
-
-/* ── PULLQUOTE ── */
-.pullquote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(24px, 3.5vw, 40px);
-  font-weight: 300;
-  font-style: italic;
-  line-height: 1.3;
-  color: var(--ink);
-  border-left: 3px solid var(--accent);
-  padding-left: 32px;
-  max-width: 700px;
-}
-
-/* ── TWO-COL ── */
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: start;
-}
-
-.two-col-asym {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 72px;
-  align-items: start;
-}
-
-/* ── MYTH CARDS ── */
-.myth-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 8px;
-}
-
-.myth-card {
-  padding: 32px;
-  border: 1px solid var(--border);
-  position: relative;
-}
-
-.myth-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 3px;
-}
-
-.myth-card.abh::before  { background: var(--abh); }
-.myth-card.han::before  { background: var(--han); }
-.myth-card.peak::before { background: var(--peak); }
-.myth-card.dual::before { background: var(--dual); }
-
-.myth-card .card-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.myth-card.abh  .card-title { color: var(--abh); }
-.myth-card.han  .card-title { color: var(--han); }
-.myth-card.peak .card-title { color: var(--peak); }
-.myth-card.dual .card-title { color: var(--dual); }
-
-.myth-card .card-sub {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-
-.myth-card .card-body {
-  font-size: 13.5px;
-  line-height: 1.7;
-  color: #3a3530;
-}
-
-.myth-card .card-prescription {
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border);
-  font-size: 12px;
-  font-family: 'DM Mono', monospace;
-  letter-spacing: 0.04em;
-}
-
-.myth-card.abh  .card-prescription { color: var(--abh); }
-.myth-card.han  .card-prescription { color: var(--han); }
-.myth-card.peak .card-prescription { color: var(--peak); }
-.myth-card.dual .card-prescription { color: var(--dual); }
-
-/* ── MATRIX DIAGRAM ── */
-.matrix-wrap {
-  margin: 8px 0;
-}
-
-.matrix {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 2px;
-  width: 100%;
-  max-width: 520px;
-  aspect-ratio: 1;
-  background: var(--border);
-  border: 1px solid var(--border);
-  position: relative;
-}
-
-.matrix-cell {
-  padding: 24px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-}
-
-.matrix-cell.peak { background: #edf2f7; }
-.matrix-cell.abh  { background: #fdf0ed; }
-.matrix-cell.han  { background: #edf5f0; }
-.matrix-cell.dual { background: #f5f0eb; }
-
-.matrix-cell .cell-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18px;
-  font-weight: 600;
-}
-.matrix-cell.peak .cell-name { color: var(--peak); }
-.matrix-cell.abh  .cell-name { color: var(--abh); }
-.matrix-cell.han  .cell-name { color: var(--han); }
-.matrix-cell.dual .cell-name { color: var(--dual); }
-
-.matrix-cell .cell-sub {
-  font-size: 11px;
-  color: var(--muted);
-  font-family: 'DM Mono', monospace;
-  letter-spacing: 0.06em;
-  margin-top: 4px;
-}
-
-.matrix-cell .cell-desc {
-  font-size: 12px;
-  line-height: 1.5;
-  color: #4a4540;
-  margin-top: 10px;
-}
-
-.matrix-axis-x {
-  position: absolute;
-  bottom: -28px;
-  left: 0; right: 0;
-  text-align: center;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.matrix-axis-y {
-  position: absolute;
-  top: 50%;
-  left: -88px;
-  transform: translateY(-50%) rotate(-90deg);
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-/* ── TENSION DIAGRAM ── */
-.tension-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-}
-.tension-row:last-child { border-bottom: none; margin-bottom: 0; }
-
-.tension-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 17px;
-  font-weight: 600;
-  width: 200px;
-  flex-shrink: 0;
-}
-
-.tension-bar-wrap {
-  flex: 1;
-  height: 6px;
-  background: var(--warm);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.tension-bar {
-  height: 100%;
-  border-radius: 3px;
-  background: var(--accent);
-}
-
-.tension-note {
-  font-size: 12px;
-  color: var(--muted);
-  width: 160px;
-  flex-shrink: 0;
-  text-align: right;
-}
-
-/* ── CASE STUDY ── */
-.case-study {
-  background: var(--warm);
-  padding: 40px 44px;
-  border-left: 4px solid var(--accent);
-  margin: 8px 0;
-}
-
-.case-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 12px;
-}
-
-.case-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-
-.case-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 28px;
-  margin-top: 20px;
-}
-
-.case-col-head {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 8px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid rgba(14,12,10,0.15);
-}
-
-.case-col-body {
-  font-size: 13px;
-  line-height: 1.65;
-  color: #2a2520;
-}
-
-/* ── SEQUENCING ── */
-.seq-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.seq-step {
-  display: flex;
-  gap: 28px;
-  align-items: flex-start;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border);
-  position: relative;
-}
-
-.seq-step:last-child { border-bottom: none; }
-
-.seq-num {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--muted);
-  width: 28px;
-  flex-shrink: 0;
-  padding-top: 3px;
-}
-
-.seq-content h4 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.seq-content .seq-body {
-  font-size: 13.5px;
-  line-height: 1.65;
-  color: #3a3530;
-}
-
-/* ── TRAJECTORY TABLE ── */
-.traj-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-.traj-table th {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-align: left;
-  padding: 10px 14px;
-  border-bottom: 2px solid var(--ink);
-}
-
-.traj-table td {
-  padding: 14px 14px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: top;
-  line-height: 1.5;
-}
-
-.traj-table tr:last-child td { border-bottom: none; }
-
-.traj-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.traj-risk-high   { color: var(--accent); font-weight: 500; }
-.traj-risk-medium { color: var(--gold); font-weight: 500; }
-.traj-risk-build  { color: #6b7a2a; font-weight: 500; }
-
-/* ── CLOSING ── */
-.closing {
-  background: var(--ink);
-  color: var(--paper);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.closing h2 {
-  color: var(--paper);
-  max-width: 700px;
-}
-
-.closing .rule { background: var(--accent); }
-.closing .lead { color: rgba(245,240,232,0.8); }
-
-.closing-line {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(20px, 2.5vw, 30px);
-  font-style: italic;
-  color: var(--paper);
-  border-top: 1px solid rgba(245,240,232,0.2);
-  padding-top: 40px;
-  margin-top: 48px;
-  max-width: 640px;
-}
-
-/* ── MYTH SECTION ── */
-.myth-block {
-  padding: 36px 40px;
-  border: 1px solid var(--border);
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.myth-block::before {
-  content: attr(data-letter);
-  position: absolute;
-  top: -20px;
-  left: 32px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 80px;
-  font-weight: 700;
-  line-height: 1;
-  opacity: 0.06;
-  color: var(--ink);
-  pointer-events: none;
-}
-
-/* ── HIGHLIGHT BOX ── */
-.highlight-box {
-  background: var(--warm);
-  border: 1px solid rgba(14,12,10,0.1);
-  padding: 28px 32px;
-  margin-top: 8px;
-}
-
-.highlight-box .hb-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-
-.highlight-box .hb-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px;
-  font-style: italic;
-  line-height: 1.4;
-  color: var(--ink);
-}
-
-/* ── FOOTNOTE ── */
-.footnote {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 0.06em;
-  position: absolute;
-  bottom: 36px;
-  left: 72px;
-}
-
-/* ── INLINE TAG ── */
 .tag {
   display: inline-block;
   font-family: 'DM Mono', monospace;
@@ -643,91 +135,613 @@ strong { font-weight: 500; }
   margin-right: 6px;
   vertical-align: middle;
 }
-
 .tag-abh  { color: var(--abh); }
 .tag-han  { color: var(--han); }
 .tag-peak { color: var(--peak); }
 .tag-dual { color: var(--dual); }
 
+.pullquote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding-left: 24px;
+}
+
+.highlight-box {
+  background: var(--warm);
+  border: 1px solid rgba(14,12,10,0.1);
+  padding: 24px 28px;
+  margin-top: 24px;
+}
+.highlight-box .hb-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.highlight-box .hb-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+/* ─── COVER ─── */
+.cover {
+  background: var(--ink);
+  color: var(--paper);
+  justify-content: flex-end;
+  padding-bottom: 80px;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+}
+.cover h1 { color: var(--paper); }
+.cover .subtitle {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.45);
+  margin-top: 28px;
+}
+.cover-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 44px;
+}
+
+/* Cover background SVG animation */
+.cover-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ─── GRID LAYOUTS ─── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.two-col-asym {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 64px;
+  align-items: start;
+}
+
+/* ─── MATRIX ─── */
+.matrix-wrap {
+  position: relative;
+  padding-left: 88px;
+  padding-bottom: 36px;
+}
+.matrix-axis-y {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) rotate(-90deg);
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.matrix-axis-x {
+  position: absolute;
+  bottom: 0;
+  left: 88px; right: 0;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  aspect-ratio: 1;
+  max-width: 520px;
+}
+.matrix-cell {
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: default;
+  transition: filter 0.2s;
+}
+.matrix-cell:hover { filter: brightness(0.97); }
+.matrix-cell.peak { background: #edf2f7; }
+.matrix-cell.abh  { background: #fdf0ed; }
+.matrix-cell.han  { background: #edf5f0; }
+.matrix-cell.dual { background: #f5f0eb; }
+.cell-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(14px, 1.8vw, 18px);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.matrix-cell.peak .cell-name { color: var(--peak); }
+.matrix-cell.abh  .cell-name { color: var(--abh); }
+.matrix-cell.han  .cell-name { color: var(--han); }
+.matrix-cell.dual .cell-name { color: var(--dual); }
+.cell-sub {
+  font-size: 10px;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+}
+.cell-desc {
+  font-size: 11px;
+  line-height: 1.5;
+  color: #4a4540;
+  margin-top: 8px;
+}
+
+/* ─── SEQ STEPS ─── */
+.seq-steps { display: flex; flex-direction: column; gap: 0; }
+.seq-step {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+.seq-step:last-child { border-bottom: none; }
+.seq-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  width: 24px;
+  flex-shrink: 0;
+  padding-top: 3px;
+}
+.seq-content h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(17px, 2vw, 20px);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.seq-body {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #3a3530;
+}
+
+/* ─── CASE STUDY ─── */
+.case-study {
+  background: var(--warm);
+  padding: 32px 36px;
+  border-left: 4px solid var(--accent);
+  margin: 8px 0;
+}
+.case-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.case-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.case-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  margin-top: 18px;
+}
+.case-col-head {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(14,12,10,0.15);
+}
+.case-col-body {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #2a2520;
+}
+
+/* ─── TRAJECTORY TABLE ─── */
+.traj-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.traj-table th {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--ink);
+}
+.traj-table td {
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.traj-table tr:last-child td { border-bottom: none; }
+.traj-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.traj-risk-high   { color: var(--accent); font-weight: 500; }
+.traj-risk-medium { color: var(--gold);   font-weight: 500; }
+.traj-risk-build  { color: #6b7a2a;       font-weight: 500; }
+
+/* ─── CLOSING ─── */
+.closing {
+  background: var(--ink);
+  color: var(--paper);
+}
+.closing h2     { color: var(--paper); }
+.closing .lead  { color: rgba(245,240,232,0.8); }
+.closing-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2.5vw, 30px);
+  font-style: italic;
+  color: var(--paper);
+  border-top: 1px solid rgba(245,240,232,0.2);
+  padding-top: 36px;
+  margin-top: 40px;
+}
+
+/* ─── VISUAL: SVG ILLUSTRATIONS ─── */
+.vis-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.vis-wrap svg { max-width: 100%; height: auto; }
+
+/* ─── MYTH CARD ─── */
+.myth-card {
+  padding: 28px;
+  border: 1px solid var(--border);
+  position: relative;
+}
+.myth-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+}
+.myth-card.abh::before  { background: var(--abh); }
+.myth-card.han::before  { background: var(--han); }
+.myth-card .card-title  {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.myth-card.abh .card-title { color: var(--abh); }
+.myth-card.han .card-title { color: var(--han); }
+.myth-card .card-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.myth-card .card-body { font-size: 13px; line-height: 1.7; color: #3a3530; }
+.myth-card .card-prescription {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.04em;
+}
+.myth-card.abh .card-prescription { color: var(--abh); }
+.myth-card.han .card-prescription { color: var(--han); }
+
+/* ─── CARA PROTOCOL STEPS ─── */
+.protocol-steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+}
+.proto-step {
+  padding: 22px 18px;
+  border-right: 1px solid var(--border);
+}
+.proto-step:last-child { border-right: none; }
+.proto-step:nth-child(odd) { background: var(--warm); }
+.proto-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.proto-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.proto-body {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #3a3530;
+}
+
+/* ═══════════════════════════
+   MOBILE RESPONSIVE
+═══════════════════════════ */
+@media (max-width: 768px) {
+  .slide {
+    padding: 56px 22px;
+    min-height: auto;
+  }
+  .slide-num {
+    top: 18px;
+    right: 22px;
+    font-size: 10px;
+  }
+  .cover { padding-bottom: 56px; }
+
+  .two-col,
+  .two-col-asym {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  /* Matrix mobile */
+  .matrix-wrap {
+    padding-left: 0;
+    padding-bottom: 32px;
+    padding-top: 8px;
+  }
+  .matrix-axis-y {
+    position: static;
+    transform: none;
+    display: block;
+    text-align: center;
+    margin-bottom: 8px;
+    white-space: normal;
+  }
+  .matrix-axis-x {
+    position: static;
+    display: block;
+    text-align: center;
+    margin-top: 8px;
+    left: 0;
+  }
+  .matrix {
+    max-width: 100%;
+    aspect-ratio: 1;
+  }
+  .cell-desc { display: none; } /* hide on tiny screens to keep matrix clean */
+
+  .case-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .protocol-steps {
+    grid-template-columns: 1fr;
+  }
+  .proto-step { border-right: none; border-bottom: 1px solid var(--border); }
+  .proto-step:last-child { border-bottom: none; }
+
+  /* Trajectory table — horizontal scroll */
+  .traj-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .traj-table { min-width: 540px; }
+
+  .pullquote { font-size: 17px; padding-left: 18px; }
+
+  .case-study { padding: 22px 20px; }
+
+  /* Myth cards mobile */
+  .myth-cards-grid { grid-template-columns: 1fr !important; }
+
+  /* closing footer */
+  .closing-footer { flex-direction: column !important; gap: 20px !important; }
+  .closing-divider { display: none !important; }
+}
+
+@media (max-width: 480px) {
+  .slide { padding: 44px 18px; }
+  .highlight-box { padding: 18px 20px; }
+}
+
+/* ─── ANIMATED ELEMENTS ─── */
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes pulse-ring { 0% { stroke-opacity:.5; r: 30; } 100% { stroke-opacity:0; r: 60; } }
+@keyframes draw-line { from { stroke-dashoffset: 400; } to { stroke-dashoffset: 0; } }
+@keyframes fade-in-up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes shimmer { 0%,100%{opacity:.6} 50%{opacity:1} }
+
+.anim-float { animation: float 4s ease-in-out infinite; }
+.anim-line  { stroke-dasharray: 400; stroke-dashoffset: 400; }
+.anim-line.visible { animation: draw-line 1.2s ease forwards; }
 </style>
 </head>
 <body>
 <div class="deck">
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 01 — COVER -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 01 — COVER ═══ -->
 <div class="slide cover">
-  <div class="cover-label">The CARA Framework — Strategic Manifesto</div>
-  <h1>Why well-crafted<br>interventions fail.</h1>
-  <div class="subtitle">Context Awareness &amp; Response Availability — A General Theory of Intervention Sequencing</div>
-  <span class="slide-num">01 / 15</span>
+  <div class="cover-bg">
+    <svg width="100%" height="100%" viewBox="0 0 1100 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <!-- Animated I/A axes in background -->
+      <line x1="550" y1="80" x2="550" y2="720" stroke="rgba(245,240,232,0.04)" stroke-width="1"/>
+      <line x1="100" y1="400" x2="1000" y2="400" stroke="rgba(245,240,232,0.04)" stroke-width="1"/>
+      <!-- Glowing dot — Arjuna state -->
+      <circle cx="750" cy="200" r="4" fill="rgba(180,210,255,0.6)"/>
+      <circle cx="750" cy="200" r="18" fill="none" stroke="rgba(180,210,255,0.15)" stroke-width="1">
+        <animate attributeName="r" from="18" to="50" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="stroke-opacity" from="0.15" to="0" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <!-- Abhimanyu dot -->
+      <circle cx="340" cy="200" r="3" fill="rgba(196,71,42,0.5)"/>
+      <circle cx="340" cy="200" r="14" fill="none" stroke="rgba(196,71,42,0.2)" stroke-width="1">
+        <animate attributeName="r" from="14" to="40" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="stroke-opacity" from="0.2" to="0" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <!-- Hanuman dot -->
+      <circle cx="760" cy="590" r="3" fill="rgba(42,107,74,0.5)"/>
+      <circle cx="760" cy="590" r="14" fill="none" stroke="rgba(42,107,74,0.2)" stroke-width="1">
+        <animate attributeName="r" from="14" to="40" dur="5s" repeatCount="indefinite"/>
+        <animate attributeName="stroke-opacity" from="0.2" to="0" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <!-- Large decorative I label -->
+      <text x="900" y="750" font-family="Cormorant Garamond, serif" font-size="280" font-weight="300" fill="rgba(245,240,232,0.025)" letter-spacing="-10">IA</text>
+    </svg>
+  </div>
+
+  <div class="cover-label reveal">The CARA Framework — Strategic Manifesto</div>
+  <h1 class="reveal reveal-delay-1">Why well-crafted<br>interventions fail.</h1>
+  <div class="subtitle reveal reveal-delay-2">Context Awareness &amp; Response Availability — A General Theory of Intervention Sequencing</div>
+  <span class="slide-num" style="color:rgba(245,240,232,0.25);">01 / 15</span>
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 02 — THE CENTRAL PARADOX -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 02 — THE CENTRAL PARADOX ═══ -->
 <div class="slide">
   <span class="slide-num">02 / 15</span>
-  <div class="slide-tag">The Central Paradox</div>
-  <h2>The problem is never<br>the intervention.</h2>
-  <div class="rule-accent"></div>
-  <p class="lead">
+  <div class="slide-tag reveal">The Central Paradox</div>
+  <h2 class="reveal reveal-delay-1">The problem is never<br>the intervention.</h2>
+  <div class="rule-accent reveal reveal-delay-2"></div>
+  <p class="lead reveal reveal-delay-2" style="max-width:680px; margin-bottom:24px;">
     Organisations invest in the right training. Governments design evidence-based policy. Clinicians follow best-practice protocols. And yet — the system doesn't change.
   </p>
-  <div style="margin-top:36px;">
-    <p class="body" style="margin-bottom:18px;">
+  <div class="reveal reveal-delay-3">
+    <p class="body" style="margin-bottom:16px; max-width:660px;">
       The assumption behind almost every intervention framework is that failure means the wrong tool was chosen. So we build better tools. More nuanced models. Richer inventories of what's missing.
     </p>
-    <p class="body">
+    <p class="body" style="max-width:660px;">
       But what if the problem isn't the tool? What if the problem is <em>when and in what order</em> the tool is applied — and that applying the right tool at the wrong moment in the wrong sequence actively makes things worse?
     </p>
   </div>
-  <div class="highlight-box" style="margin-top:40px;">
+
+  <!-- Visual: two gears not meshing -->
+  <div class="reveal reveal-delay-4" style="margin: 28px 0; display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+    <svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(50,50)">
+        <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="8s" repeatCount="indefinite" additive="sum"/>
+        <circle cx="0" cy="0" r="28" fill="none" stroke="#c4472a" stroke-width="2" opacity="0.4"/>
+        <circle cx="0" cy="0" r="8" fill="#c4472a" opacity="0.3"/>
+        <rect x="-3" y="-36" width="6" height="10" rx="2" fill="#c4472a" opacity="0.5"/>
+        <rect x="-3" y="26"  width="6" height="10" rx="2" fill="#c4472a" opacity="0.5"/>
+        <rect x="-36" y="-3" width="10" height="6" rx="2" fill="#c4472a" opacity="0.5"/>
+        <rect x="26"  y="-3" width="10" height="6" rx="2" fill="#c4472a" opacity="0.5"/>
+        <rect x="15"  y="-30" width="6" height="10" rx="2" transform="rotate(45)" fill="#c4472a" opacity="0.5"/>
+        <rect x="-15" y="20"  width="6" height="10" rx="2" transform="rotate(45)" fill="#c4472a" opacity="0.5"/>
+        <rect x="15"  y="20"  width="6" height="10" rx="2" transform="rotate(-45)" fill="#c4472a" opacity="0.5"/>
+        <rect x="-15" y="-30" width="6" height="10" rx="2" transform="rotate(-45)" fill="#c4472a" opacity="0.5"/>
+      </g>
+      <text x="50" y="88" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8a7f70" letter-spacing="0.1em">RIGHT TOOL</text>
+      <!-- gap marker -->
+      <line x1="85" y1="50" x2="115" y2="50" stroke="#8a7f70" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="100" y="45" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#c4472a">✗</text>
+      <g transform="translate(150,50)">
+        <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="-360 0 0" dur="7s" repeatCount="indefinite" additive="sum"/>
+        <circle cx="0" cy="0" r="28" fill="none" stroke="#1a3a6b" stroke-width="2" opacity="0.4"/>
+        <circle cx="0" cy="0" r="8" fill="#1a3a6b" opacity="0.3"/>
+        <rect x="-3" y="-36" width="6" height="10" rx="2" fill="#1a3a6b" opacity="0.5"/>
+        <rect x="-3" y="26"  width="6" height="10" rx="2" fill="#1a3a6b" opacity="0.5"/>
+        <rect x="-36" y="-3" width="10" height="6" rx="2" fill="#1a3a6b" opacity="0.5"/>
+        <rect x="26"  y="-3" width="10" height="6" rx="2" fill="#1a3a6b" opacity="0.5"/>
+        <rect x="15"  y="-30" width="6" height="10" rx="2" transform="rotate(45)" fill="#1a3a6b" opacity="0.5"/>
+        <rect x="-15" y="20"  width="6" height="10" rx="2" transform="rotate(45)" fill="#1a3a6b" opacity="0.5"/>
+        <rect x="15"  y="20"  width="6" height="10" rx="2" transform="rotate(-45)" fill="#1a3a6b" opacity="0.5"/>
+        <rect x="-15" y="-30" width="6" height="10" rx="2" transform="rotate(-45)" fill="#1a3a6b" opacity="0.5"/>
+      </g>
+      <text x="150" y="88" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8a7f70" letter-spacing="0.1em">WRONG STATE</text>
+    </svg>
+    <p style="font-size:13px; color:var(--muted); font-style:italic; max-width:340px;">
+      Two well-designed components that don't mesh. The problem is not the design. It is the configuration.
+    </p>
+  </div>
+
+  <div class="highlight-box reveal reveal-delay-5">
     <div class="hb-label">The CARA Claim</div>
     <div class="hb-text">Intervention effectiveness is determined not by content, but by the system's state and trajectory at the moment of application.</div>
   </div>
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 03 — THE MISSING LAYER -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 03 — THE MISSING LAYER ═══ -->
 <div class="slide">
   <span class="slide-num">03 / 15</span>
-  <div class="slide-tag">What's Missing</div>
-  <div class="two-col-asym">
+  <div class="slide-tag reveal">What's Missing</div>
+  <div class="two-col reveal reveal-delay-1">
     <div>
-      <h2>Every framework asks what. None ask when.</h2>
+      <h2>Every framework asks what.<br>None ask when.</h2>
       <div class="rule"></div>
-      <p class="body" style="margin-bottom:18px;">
+      <p class="body" style="margin-bottom:16px;">
         COM-B tells you <em>what</em> is missing — Capability, Opportunity, Motivation. The Behaviour Change Wheel tells you <em>which</em> intervention category addresses each gap. BJ Fogg's B=MAP tells you the conditions for behaviour to occur.
       </p>
-      <p class="body" style="margin-bottom:18px;">
-        All three are inventories. They describe a system's components at a point in time. None of them ask: what direction is the system moving? Which constraint is binding right now? What will happen if I add capacity before the system has an accurate model of what to do with it?
+      <p class="body" style="margin-bottom:16px;">
+        All three are inventories. They describe a system's components at a point in time. None ask: what direction is the system moving? Which constraint is binding right now? What happens if I add capacity before the system has an accurate model?
       </p>
       <p class="body">
         The missing layer is <strong>diagnosis before prescription</strong> — understanding the system's internal configuration, not just its resource levels.
       </p>
     </div>
     <div>
-      <div class="seq-steps" style="margin-top:8px;">
-        <div class="seq-step">
+      <div class="seq-steps">
+        <div class="seq-step reveal reveal-delay-2">
           <div class="seq-num">01</div>
           <div class="seq-content">
             <h4>Existing frameworks</h4>
             <div class="seq-body">Identify what's absent. Prescribe what to add. Assume more of the right thing produces improvement.</div>
           </div>
         </div>
-        <div class="seq-step">
+        <div class="seq-step reveal reveal-delay-3">
           <div class="seq-num">02</div>
           <div class="seq-content">
             <h4>The reality</h4>
             <div class="seq-body">Adding the right thing in the wrong state, or in the wrong order, produces committed errors — not recovery.</div>
           </div>
         </div>
-        <div class="seq-step">
+        <div class="seq-step reveal reveal-delay-4">
           <div class="seq-num">03</div>
           <div class="seq-content">
             <h4>What CARA adds</h4>
@@ -740,22 +754,39 @@ strong { font-weight: 500; }
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 04 — THE TWO FUNCTIONS -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 04 — THE TWO FUNCTIONS ═══ -->
 <div class="slide">
   <span class="slide-num">04 / 15</span>
-  <div class="slide-tag">The Core Variables</div>
-  <h2>Every adaptive system<br>has two jobs.</h2>
-  <div class="rule-accent"></div>
-  <div class="two-col" style="margin-top:8px;">
+  <div class="slide-tag reveal">The Core Variables</div>
+  <h2 class="reveal reveal-delay-1">Every adaptive system<br>has two jobs.</h2>
+  <div class="rule-accent reveal reveal-delay-2"></div>
+
+  <!-- Visual: I and A as two hemispheres -->
+  <div class="reveal reveal-delay-2" style="display:flex; justify-content:center; margin: 20px 0 24px;">
+    <svg width="min(100%, 520px)" height="120" viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg">
+      <!-- I hemisphere -->
+      <ellipse cx="130" cy="60" rx="110" ry="48" fill="rgba(196,71,42,0.07)" stroke="rgba(196,71,42,0.3)" stroke-width="1.5"/>
+      <text x="130" y="44" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="28" font-weight="300" fill="#c4472a" opacity="0.8">I</text>
+      <text x="130" y="65" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8a7f70" letter-spacing="0.1em">CONTEXT</text>
+      <text x="130" y="77" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8a7f70" letter-spacing="0.1em">AWARENESS</text>
+      <!-- A hemisphere -->
+      <ellipse cx="390" cy="60" rx="110" ry="48" fill="rgba(26,58,107,0.07)" stroke="rgba(26,58,107,0.3)" stroke-width="1.5"/>
+      <text x="390" y="44" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="28" font-weight="300" fill="#1a3a6b" opacity="0.8">A</text>
+      <text x="390" y="65" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8a7f70" letter-spacing="0.1em">RESPONSE</text>
+      <text x="390" y="77" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8a7f70" letter-spacing="0.1em">AVAILABILITY</text>
+      <!-- Overlap / gap region -->
+      <line x1="245" y1="30" x2="275" y2="30" stroke="#8a7f70" stroke-width="1" stroke-dasharray="3,2"/>
+      <line x1="245" y1="90" x2="275" y2="90" stroke="#8a7f70" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="260" y="63" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8a7f70" letter-spacing="0.06em">GAP</text>
+    </svg>
+  </div>
+
+  <div class="two-col reveal reveal-delay-3" style="margin-top:0;">
     <div>
-      <div style="border-top: 3px solid var(--ink); padding-top: 24px;">
+      <div style="border-top: 3px solid var(--abh); padding-top: 20px;">
         <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:10px;">Function I</div>
-        <h3 style="margin-bottom:14px;">Context Awareness</h3>
-        <p class="body" style="margin-bottom:14px;">
-          The accuracy of the system's internal model of its situation. Not how much information it receives — but how well it understands what is happening and what comes next.
-        </p>
+        <h3 style="margin-bottom:12px; color:var(--abh);">Context Awareness</h3>
+        <p class="body" style="margin-bottom:12px;">The accuracy of the system's internal model of its situation. Not how much information it receives — but how well it understands what is happening and what comes next.</p>
         <p class="body" style="font-size:13px; color:var(--muted);">
           A person's accurate self-model of their behaviour.<br>
           An organisation's honest reading of its market position.<br>
@@ -764,12 +795,10 @@ strong { font-weight: 500; }
       </div>
     </div>
     <div>
-      <div style="border-top: 3px solid var(--ink); padding-top: 24px;">
+      <div style="border-top: 3px solid var(--peak); padding-top: 20px;">
         <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:10px;">Function A</div>
-        <h3 style="margin-bottom:14px;">Response Availability</h3>
-        <p class="body" style="margin-bottom:14px;">
-          The degrees of freedom available to act coherently on that model. Not raw resources or effort — but whether the execution environment is open, directed, and aligned.
-        </p>
+        <h3 style="margin-bottom:12px; color:var(--peak);">Response Availability</h3>
+        <p class="body" style="margin-bottom:12px;">The degrees of freedom available to act coherently on that model. Not raw resources — but whether the execution environment is open, directed, and aligned.</p>
         <p class="body" style="font-size:13px; color:var(--muted);">
           A person's real environmental opportunity to change.<br>
           An organisation's structural capacity to execute strategy.<br>
@@ -778,56 +807,61 @@ strong { font-weight: 500; }
       </div>
     </div>
   </div>
-  <div class="highlight-box" style="margin-top:36px;">
+  <div class="highlight-box reveal reveal-delay-5" style="margin-top:24px;">
     <div class="hb-label">The Key Insight</div>
     <div class="hb-text">Neither function alone determines outcomes. What matters is their alignment — and the direction each is moving.</div>
   </div>
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 05 — THE COHERENCE CONSTRAINT -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 05 — THE COHERENCE CONSTRAINT ═══ -->
 <div class="slide">
   <span class="slide-num">05 / 15</span>
-  <div class="slide-tag">The Coherence Constraint</div>
+  <div class="slide-tag reveal">The Coherence Constraint</div>
   <div class="two-col-asym">
     <div>
-      <h2>Misalignment is<br>not just inefficiency.<br>It is a structural penalty.</h2>
-      <div class="rule-accent"></div>
-      <p class="body" style="margin-bottom:18px;">
-        Most frameworks treat capacity as additive. More capability plus more opportunity equals more behaviour. Double the investment, double the output. The assumption is compensatory — high motivation can substitute for low ability.
+      <h2 class="reveal reveal-delay-1">Misalignment is<br>not just inefficiency.<br>It is a structural penalty.</h2>
+      <div class="rule-accent reveal reveal-delay-2"></div>
+      <p class="body reveal reveal-delay-2" style="margin-bottom:16px;">
+        Most frameworks treat capacity as additive. More capability plus more opportunity equals more behaviour. The assumption is compensatory — high motivation can substitute for low ability.
       </p>
-      <p class="body" style="margin-bottom:18px;">
-        This is wrong. When Context Awareness and Response Availability are misaligned, the system pays an exponential penalty on its effective drive — regardless of how high the absolute levels are.
+      <p class="body reveal reveal-delay-3" style="margin-bottom:16px;">
+        This is wrong. When I and A are misaligned, the system pays an exponential penalty on its effective drive — regardless of how high the absolute levels are.
       </p>
-      <p class="body">
-        A highly resourced organisation executing against a broken strategic model is not just suboptimal. It is in a qualitatively different and more dangerous state than a modestly resourced organisation with an accurate one. It is running fast in the wrong direction.
+      <p class="body reveal reveal-delay-3">
+        A highly resourced organisation executing against a broken strategic model is not just suboptimal. It is running fast in the wrong direction.
       </p>
     </div>
-    <div>
-      <div style="padding: 32px 28px; background: var(--warm); border: 1px solid var(--border);">
+    <div class="reveal reveal-delay-4">
+      <!-- Animated coherence bars -->
+      <div style="padding: 28px 24px; background: var(--warm); border: 1px solid var(--border);">
         <div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:20px;">The Coherence Principle</div>
 
-        <div style="margin-bottom:24px;">
-          <div style="font-size:12px; color:var(--muted); margin-bottom:6px;">High I + High A + Aligned</div>
-          <div style="height:8px; background:var(--peak); border-radius:2px; width:90%;"></div>
+        <div style="margin-bottom:22px;">
+          <div style="font-size:12px; color:var(--muted); margin-bottom:6px;">High I + High A + <strong style="color:var(--peak)">Aligned</strong></div>
+          <div style="height:10px; background: #e8e8e8; border-radius:3px; overflow:hidden; position:relative;">
+            <div class="bar-fill" data-width="90" style="height:100%; background:var(--peak); border-radius:3px; width:0; transition: width 1.2s 0.2s ease;"></div>
+          </div>
           <div style="font-size:11px; color:var(--peak); margin-top:4px;">Peak performance</div>
         </div>
 
-        <div style="margin-bottom:24px;">
-          <div style="font-size:12px; color:var(--muted); margin-bottom:6px;">High I + High A + Misaligned</div>
-          <div style="height:8px; background:var(--accent); border-radius:2px; width:40%;"></div>
+        <div style="margin-bottom:22px;">
+          <div style="font-size:12px; color:var(--muted); margin-bottom:6px;">High I + High A + <strong style="color:var(--accent)">Misaligned</strong></div>
+          <div style="height:10px; background: #e8e8e8; border-radius:3px; overflow:hidden;">
+            <div class="bar-fill" data-width="40" style="height:100%; background:var(--accent); border-radius:3px; width:0; transition: width 1.2s 0.5s ease;"></div>
+          </div>
           <div style="font-size:11px; color:var(--accent); margin-top:4px;">Severe penalty — worse than low capacity + aligned</div>
         </div>
 
-        <div style="margin-bottom:24px;">
-          <div style="font-size:12px; color:var(--muted); margin-bottom:6px;">Low I + Low A + Aligned</div>
-          <div style="height:8px; background:var(--dual); border-radius:2px; width:28%;"></div>
+        <div style="margin-bottom:22px;">
+          <div style="font-size:12px; color:var(--muted); margin-bottom:6px;">Low I + Low A + <strong style="color:var(--dual)">Aligned</strong></div>
+          <div style="height:10px; background: #e8e8e8; border-radius:3px; overflow:hidden;">
+            <div class="bar-fill" data-width="28" style="height:100%; background:var(--dual); border-radius:3px; width:0; transition: width 1.2s 0.8s ease;"></div>
+          </div>
           <div style="font-size:11px; color:var(--dual); margin-top:4px;">Constrained but coherent — predictable</div>
         </div>
 
-        <div style="border-top:1px solid var(--border); padding-top:16px; font-size:12px; color:var(--muted); font-style:italic;">
+        <div style="border-top:1px solid var(--border); padding-top:14px; font-size:12px; color:var(--muted); font-style:italic;">
           The gap between I and A, not the level of either, determines effective drive.
         </div>
       </div>
@@ -836,48 +870,46 @@ strong { font-weight: 500; }
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 06 — THE FOUR STATES: SETUP -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 06 — THE FOUR STATES ═══ -->
 <div class="slide">
   <span class="slide-num">06 / 15</span>
-  <div class="slide-tag">The Four States</div>
-  <h2>From any combination of I and A,<br>four states emerge.</h2>
-  <div class="rule"></div>
-  <p class="body" style="margin-bottom:40px; max-width:620px;">
+  <div class="slide-tag reveal">The Four States</div>
+  <h2 class="reveal reveal-delay-1">From any combination of I and A,<br>four states emerge.</h2>
+  <div class="rule reveal reveal-delay-2"></div>
+  <p class="body reveal reveal-delay-2" style="margin-bottom:32px; max-width:620px;">
     These are not points on a continuum. They are qualitatively distinct regimes. A system in one state does not just perform differently — it <em>fails differently, recovers differently, and responds to different interventions</em>.
   </p>
 
-  <div style="position:relative; padding-left:100px; padding-bottom:40px;">
-    <div class="matrix-axis-y">Context Awareness (I) →</div>
-    <div class="matrix" style="max-width:580px;">
+  <div class="matrix-wrap reveal reveal-delay-3">
+    <div class="matrix-axis-y">Context Awareness (I) ↑</div>
+    <div class="matrix">
       <div class="matrix-cell abh">
         <div>
           <div class="cell-name">Abhimanyu<br>Conundrum</div>
           <div class="cell-sub">I+ &nbsp;·&nbsp; A−</div>
         </div>
-        <div class="cell-desc">The system sees clearly but cannot act. Knows the problem. Cannot execute the solution.</div>
+        <div class="cell-desc">Sees clearly. Cannot act. Knows the problem. Cannot execute.</div>
       </div>
       <div class="matrix-cell peak">
         <div>
           <div class="cell-name">Arjuna State</div>
           <div class="cell-sub">I+ &nbsp;·&nbsp; A+</div>
         </div>
-        <div class="cell-desc">Accurate model. Available execution. The metastable peak — not permanent, but the target of all intervention.</div>
+        <div class="cell-desc">Accurate model. Available execution. The metastable peak.</div>
       </div>
       <div class="matrix-cell dual">
         <div>
           <div class="cell-name">Trooper State</div>
           <div class="cell-sub">I− &nbsp;·&nbsp; A−</div>
         </div>
-        <div class="cell-desc">Both functions constrained. The status quo state for most people and organisations entering change.</div>
+        <div class="cell-desc">Both constrained. Status quo for most entering change.</div>
       </div>
       <div class="matrix-cell han">
         <div>
           <div class="cell-name">Hanuman<br>Complex</div>
           <div class="cell-sub">I− &nbsp;·&nbsp; A+</div>
         </div>
-        <div class="cell-desc">Capacity without direction. High activation, degraded model. Generates committed errors.</div>
+        <div class="cell-desc">Capacity without direction. Generates committed errors.</div>
       </div>
     </div>
     <div class="matrix-axis-x">Response Availability (A) →</div>
@@ -885,45 +917,68 @@ strong { font-weight: 500; }
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 07 — ABHIMANYU: THE MYTH -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 07 — ABHIMANYU: THE MYTH ═══ -->
 <div class="slide">
   <span class="slide-num">07 / 15</span>
-  <div class="slide-tag">The Myth of Abhimanyu</div>
+  <div class="slide-tag reveal">The Myth of Abhimanyu</div>
   <div class="two-col-asym">
     <div>
-      <h2>He could enter<br>the labyrinth.<br>He could not exit.</h2>
-      <div class="rule-accent"></div>
-      <p class="body" style="margin-bottom:18px;">
-        In the Mahabharata, the warrior Abhimanyu learned the secret of entering the Chakravyuha — an unbreakable battle formation — while still in his mother's womb. He heard his father Arjuna explain how to enter. But before Arjuna could describe how to exit, his mother fell asleep. The knowledge was cut off.
+      <h2 class="reveal reveal-delay-1">He could enter<br>the labyrinth.<br>He could not exit.</h2>
+      <div class="rule-accent reveal reveal-delay-2"></div>
+      <p class="body reveal reveal-delay-2" style="margin-bottom:16px;">
+        In the Mahabharata, the warrior Abhimanyu learned the secret of entering the Chakravyuha — an unbreakable battle formation — while still in his mother's womb. He heard his father Arjuna explain how to enter. But before Arjuna could describe how to exit, his mother fell asleep.
       </p>
-      <p class="body" style="margin-bottom:18px;">
-        Abhimanyu enters the formation with extraordinary skill, fighting valiantly. He can see exactly what is happening. His understanding is complete. But he has no way out. He is destroyed not by ignorance but by structural incapacity.
+      <p class="body reveal reveal-delay-3" style="margin-bottom:16px;">
+        Abhimanyu enters the formation with extraordinary skill. He can see exactly what is happening. His understanding is complete. But he has no way out. He is destroyed not by ignorance but by structural incapacity.
       </p>
-      <p class="body">
+      <p class="body reveal reveal-delay-4">
         <strong>The Abhimanyu Conundrum is this exact configuration.</strong> High context awareness, blocked response availability. The system sees the problem with perfect clarity — and has no mechanism to act on what it sees.
       </p>
     </div>
     <div>
-      <div class="case-study" style="margin-top:0; background: #fdf5f3; border-left-color: var(--abh);">
+      <!-- Abhimanyu visual: eye sees, hand blocked -->
+      <div class="reveal reveal-delay-3" style="display:flex; justify-content:center; margin-bottom:20px;">
+        <svg width="180" height="160" viewBox="0 0 180 160" xmlns="http://www.w3.org/2000/svg">
+          <!-- Eye — I is high -->
+          <ellipse cx="90" cy="55" rx="38" ry="22" fill="rgba(196,71,42,0.08)" stroke="var(--abh)" stroke-width="1.5"/>
+          <circle cx="90" cy="55" r="10" fill="var(--abh)" opacity="0.7"/>
+          <circle cx="90" cy="55" r="4" fill="white"/>
+          <!-- Glow ring -->
+          <ellipse cx="90" cy="55" rx="38" ry="22" fill="none" stroke="var(--abh)" stroke-width="0.5" opacity="0.3">
+            <animate attributeName="rx" values="38;48;38" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="ry" values="22;28;22" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.3;0;0.3" dur="3s" repeatCount="indefinite"/>
+          </ellipse>
+          <text x="90" y="42" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="var(--abh)" letter-spacing="0.1em">I HIGH</text>
+          <!-- Downward arrow blocked -->
+          <line x1="90" y1="82" x2="90" y2="118" stroke="var(--abh)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>
+          <!-- Block/wall -->
+          <rect x="60" y="118" width="60" height="10" rx="2" fill="var(--abh)" opacity="0.25"/>
+          <line x1="60" y1="118" x2="120" y2="128" stroke="var(--abh)" stroke-width="0.5" opacity="0.4"/>
+          <line x1="68" y1="118" x2="128" y2="128" stroke="var(--abh)" stroke-width="0.5" opacity="0.4"/>
+          <line x1="76" y1="118" x2="136" y2="128" stroke="var(--abh)" stroke-width="0.5" opacity="0.3"/>
+          <text x="90" y="146" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="var(--abh)" opacity="0.7" letter-spacing="0.08em">A BLOCKED</text>
+        </svg>
+      </div>
+
+      <div class="case-study reveal reveal-delay-4" style="margin-top:0; background: #fdf5f3; border-left-color: var(--abh);">
         <div class="case-label" style="color:var(--abh);">What it looks like</div>
-        <div class="case-title" style="font-size:18px;">The Abhimanyu Pattern</div>
-        <div style="display:flex; flex-direction:column; gap:14px; margin-top:4px;">
-          <div style="font-size:13px; line-height:1.65; color:#2a2520; padding-bottom:14px; border-bottom:1px solid rgba(196,71,42,0.15);">
+        <div class="case-title" style="font-size:17px;">The Abhimanyu Pattern</div>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px;">
+          <div style="font-size:13px; line-height:1.65; color:#2a2520; padding-bottom:12px; border-bottom:1px solid rgba(196,71,42,0.15);">
             <strong style="display:block; margin-bottom:4px; color:var(--abh);">In organisations</strong>
-            Leadership team that accurately diagnoses the strategic problem but cannot mobilise the organisation to execute. The insight exists. The bureaucracy, politics, or resource constraints block the response.
+            Leadership that accurately diagnoses the problem but cannot mobilise to execute. Insight exists. Bureaucracy blocks response.
           </div>
-          <div style="font-size:13px; line-height:1.65; color:#2a2520; padding-bottom:14px; border-bottom:1px solid rgba(196,71,42,0.15);">
+          <div style="font-size:13px; line-height:1.65; color:#2a2520; padding-bottom:12px; border-bottom:1px solid rgba(196,71,42,0.15);">
             <strong style="display:block; margin-bottom:4px; color:var(--abh);">In behaviour change</strong>
-            The person who understands exactly what they need to do, why they need to do it, and what's in the way — but lives in an environment that makes the required behaviour structurally impossible.
+            The person who understands exactly what they need to do — but lives in an environment that makes the required behaviour structurally impossible.
           </div>
           <div style="font-size:13px; line-height:1.65; color:#2a2520;">
             <strong style="display:block; margin-bottom:4px; color:var(--abh);">In policy</strong>
-            A government that has identified the right intervention but lacks enforcement capacity, delivery infrastructure, or institutional alignment to implement it.
+            A government with the right intervention but lacking enforcement capacity or delivery infrastructure to implement it.
           </div>
         </div>
-        <div style="margin-top:18px; padding-top:14px; border-top:1px solid rgba(196,71,42,0.2); font-family:'DM Mono',monospace; font-size:11px; color:var(--abh); letter-spacing:0.04em;">
+        <div style="margin-top:16px; padding-top:12px; border-top:1px solid rgba(196,71,42,0.2); font-family:'DM Mono',monospace; font-size:11px; color:var(--abh); letter-spacing:0.04em;">
           → Prescription: Restore A. Do not add more awareness.
         </div>
       </div>
@@ -932,45 +987,71 @@ strong { font-weight: 500; }
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 08 — HANUMAN: THE MYTH -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 08 — HANUMAN: THE MYTH ═══ -->
 <div class="slide">
   <span class="slide-num">08 / 15</span>
-  <div class="slide-tag">The Myth of Hanuman</div>
+  <div class="slide-tag reveal">The Myth of Hanuman</div>
   <div class="two-col-asym">
     <div>
-      <h2>He forgot<br>his own power.<br>Until someone reminded him.</h2>
-      <div class="rule-accent"></div>
-      <p class="body" style="margin-bottom:18px;">
-        In the Ramayana, Hanuman — the divine warrior — was cursed as a child to forget his extraordinary abilities. He lived as an ordinary being, unaware of what he was capable of. Only when the sage Jambavan reminded him of his true nature did Hanuman remember — and then he leapt across the ocean to Lanka in a single bound.
+      <h2 class="reveal reveal-delay-1">He forgot<br>his own power.<br>Until someone reminded him.</h2>
+      <div class="rule-accent reveal reveal-delay-2"></div>
+      <p class="body reveal reveal-delay-2" style="margin-bottom:16px;">
+        In the Ramayana, Hanuman was cursed as a child to forget his extraordinary abilities. He lived as an ordinary being, unaware of what he was capable of. Only when the sage Jambavan reminded him of his true nature did he remember — and then he leapt across the ocean in a single bound.
       </p>
-      <p class="body" style="margin-bottom:18px;">
+      <p class="body reveal reveal-delay-3" style="margin-bottom:16px;">
         The problem was never capacity. Hanuman always had the power. The problem was the absence of an accurate model of what he was and what was possible.
       </p>
-      <p class="body">
-        <strong>The Hanuman Complex is the dangerous inversion.</strong> High response availability, degraded context awareness. The system has capacity — sometimes enormous capacity — but no accurate model to direct it. It acts. But it acts blind.
+      <p class="body reveal reveal-delay-4">
+        <strong>The Hanuman Complex is the dangerous inversion.</strong> High response availability, degraded context awareness. The system has capacity — sometimes enormous capacity — but no accurate model to direct it. It acts blind.
       </p>
     </div>
     <div>
-      <div class="case-study" style="margin-top:0; background: #f0f7f3; border-left-color: var(--han);">
+      <!-- Hanuman visual: strong arm, foggy eye -->
+      <div class="reveal reveal-delay-3" style="display:flex; justify-content:center; margin-bottom:20px;">
+        <svg width="180" height="160" viewBox="0 0 180 160" xmlns="http://www.w3.org/2000/svg">
+          <!-- Foggy / degraded eye -->
+          <ellipse cx="90" cy="42" rx="38" ry="22" fill="rgba(42,107,74,0.05)" stroke="var(--han)" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+          <circle cx="90" cy="42" r="10" fill="none" stroke="var(--han)" stroke-width="1" opacity="0.4"/>
+          <line x1="72" y1="35" x2="108" y2="49" stroke="var(--han)" stroke-width="1" opacity="0.25"/>
+          <line x1="72" y1="42" x2="108" y2="42" stroke="var(--han)" stroke-width="1" opacity="0.2"/>
+          <text x="90" y="29" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="var(--han)" opacity="0.6" letter-spacing="0.1em">I DEGRADED</text>
+          <!-- Strong arm / action -->
+          <path d="M 60 90 Q 90 75 120 90" fill="none" stroke="var(--han)" stroke-width="2.5" opacity="0.8"/>
+          <circle cx="120" cy="90" r="8" fill="var(--han)" opacity="0.7"/>
+          <circle cx="120" cy="90" r="14" fill="none" stroke="var(--han)" stroke-width="1" opacity="0.3">
+            <animate attributeName="r" values="14;22;14" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.3;0;0.3" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Arrows going wrong directions -->
+          <line x1="120" y1="90" x2="148" y2="72" stroke="var(--han)" stroke-width="1.5" opacity="0.6" marker-end="url(#arr-han)"/>
+          <line x1="120" y1="90" x2="148" y2="110" stroke="var(--han)" stroke-width="1.5" opacity="0.6" marker-end="url(#arr-han)"/>
+          <defs>
+            <marker id="arr-han" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="var(--han)" opacity="0.6"/>
+            </marker>
+          </defs>
+          <text x="90" y="130" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="var(--han)" opacity="0.7" letter-spacing="0.08em">A HIGH · MISDIRECTED</text>
+        </svg>
+      </div>
+
+      <div class="case-study reveal reveal-delay-4" style="margin-top:0; background: #f0f7f3; border-left-color: var(--han);">
         <div class="case-label" style="color:var(--han);">What it looks like</div>
-        <div class="case-title" style="font-size:18px;">The Hanuman Pattern</div>
-        <div style="display:flex; flex-direction:column; gap:14px; margin-top:4px;">
-          <div style="font-size:13px; line-height:1.65; color:#2a2520; padding-bottom:14px; border-bottom:1px solid rgba(42,107,74,0.15);">
+        <div class="case-title" style="font-size:17px;">The Hanuman Pattern</div>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px;">
+          <div style="font-size:13px; line-height:1.65; color:#2a2520; padding-bottom:12px; border-bottom:1px solid rgba(42,107,74,0.15);">
             <strong style="display:block; margin-bottom:4px; color:var(--han);">In organisations</strong>
-            A well-resourced team launching initiative after initiative without a clear model of what the underlying problem actually is. High activity, low traction. Each effort generates sunk cost and political fatigue without coherent direction.
+            A well-resourced team launching initiative after initiative without a clear model of what the underlying problem actually is. High activity, low traction.
           </div>
-          <div style="font-size:13px; line-height:1.65; color:#2a2520; padding-bottom:14px; border-bottom:1px solid rgba(42,107,74,0.15);">
+          <div style="font-size:13px; line-height:1.65; color:#2a2520; padding-bottom:12px; border-bottom:1px solid rgba(42,107,74,0.15);">
             <strong style="display:block; margin-bottom:4px; color:var(--han);">In behaviour change</strong>
-            The highly motivated, well-supported person who keeps trying — new programmes, new approaches, new commitments — without an accurate model of what is actually driving their behaviour. Each failure depletes resources and self-efficacy.
+            The motivated, well-supported person who keeps trying — new programmes, new approaches — without an accurate model of what is driving their behaviour.
           </div>
           <div style="font-size:13px; line-height:1.65; color:#2a2520;">
             <strong style="display:block; margin-bottom:4px; color:var(--han);">In policy</strong>
-            A delivery-capable government implementing programmes without adequate diagnostic grounding. Strong execution of the wrong intervention. The capacity to act fast makes the misallocation worse.
+            A delivery-capable government implementing programmes without diagnostic grounding. Strong execution of the wrong intervention.
           </div>
         </div>
-        <div style="margin-top:18px; padding-top:14px; border-top:1px solid rgba(42,107,74,0.2); font-family:'DM Mono',monospace; font-size:11px; color:var(--han); letter-spacing:0.04em;">
+        <div style="margin-top:16px; padding-top:12px; border-top:1px solid rgba(42,107,74,0.2); font-family:'DM Mono',monospace; font-size:11px; color:var(--han); letter-spacing:0.04em;">
           → Prescription: Stop adding A. Restore I first. Hard stop.
         </div>
       </div>
@@ -979,45 +1060,79 @@ strong { font-weight: 500; }
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 09 — WHY HANUMAN IS MORE DANGEROUS -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 09 — THE ASYMMETRY ═══ -->
 <div class="slide">
   <span class="slide-num">09 / 15</span>
-  <div class="slide-tag">The Asymmetry</div>
-  <h2>Abhimanyu is the better failure.<br>Hanuman is the dangerous one.</h2>
-  <div class="rule-accent"></div>
-  <div class="two-col" style="margin-top:8px;">
+  <div class="slide-tag reveal">The Asymmetry</div>
+  <h2 class="reveal reveal-delay-1">Abhimanyu is the better failure.<br>Hanuman is the dangerous one.</h2>
+  <div class="rule-accent reveal reveal-delay-2"></div>
+
+  <!-- Visual comparison diagram -->
+  <div class="reveal reveal-delay-2" style="display:flex; justify-content:center; margin: 20px 0 24px; overflow-x:auto;">
+    <svg width="min(100%,560px)" height="140" viewBox="0 0 560 140" xmlns="http://www.w3.org/2000/svg" style="min-width:300px;">
+      <!-- Abhimanyu trajectory -->
+      <text x="140" y="18" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="var(--abh)" letter-spacing="0.12em">ABHIMANYU</text>
+      <!-- Deep V with fast recovery -->
+      <polyline points="20,40 80,40 110,110 140,110 170,40 250,40" fill="none" stroke="var(--abh)" stroke-width="2" stroke-linejoin="round"/>
+      <text x="140" y="128" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="var(--abh)" opacity="0.7">deep · fast recovery</text>
+      <line x1="140" y1="20" x2="140" y2="130" stroke="var(--abh)" stroke-width="0.5" stroke-dasharray="2,3" opacity="0.2"/>
+      <!-- Single intervention arrow -->
+      <path d="M 198 55 L 215 55" stroke="var(--abh)" stroke-width="1.5" marker-end="url(#arr-abh)" opacity="0.7"/>
+      <text x="220" y="58" font-family="DM Mono,monospace" font-size="7" fill="var(--abh)" opacity="0.7">restore A</text>
+      <defs>
+        <marker id="arr-abh" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto">
+          <path d="M0,0 L0,5 L5,2.5z" fill="var(--abh)" opacity="0.7"/>
+        </marker>
+        <marker id="arr-han2" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto">
+          <path d="M0,0 L0,5 L5,2.5z" fill="var(--han)"/>
+        </marker>
+      </defs>
+
+      <!-- Divider -->
+      <line x1="280" y1="15" x2="280" y2="135" stroke="var(--border)" stroke-width="1"/>
+
+      <!-- Hanuman trajectory -->
+      <text x="420" y="18" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="var(--han)" letter-spacing="0.12em">HANUMAN</text>
+      <!-- Gradual drift downward, two-step recovery -->
+      <polyline points="300,50 360,58 400,70 430,82 460,96 500,96" fill="none" stroke="var(--han)" stroke-width="2" stroke-linejoin="round"/>
+      <text x="420" y="128" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="var(--han)" opacity="0.7">shallow · structurally persistent</text>
+      <!-- Two intervention arrows -->
+      <path d="M 430 88 L 430 75" stroke="var(--han)" stroke-width="1.5" marker-end="url(#arr-han2)" opacity="0.7"/>
+      <text x="436" y="90" font-family="DM Mono,monospace" font-size="6" fill="var(--han)" opacity="0.7">①stop A</text>
+      <path d="M 460 88 L 460 75" stroke="var(--han)" stroke-width="1.5" marker-end="url(#arr-han2)" opacity="0.5"/>
+      <text x="466" y="90" font-family="DM Mono,monospace" font-size="6" fill="var(--han)" opacity="0.5">②rebuild I</text>
+
+      <!-- Baseline -->
+      <line x1="20" y1="40" x2="560" y2="40" stroke="rgba(14,12,10,0.06)" stroke-width="1"/>
+      <text x="14" y="44" font-family="DM Mono,monospace" font-size="7" fill="#8a7f70" opacity="0.6">peak</text>
+    </svg>
+  </div>
+
+  <div class="two-col reveal reveal-delay-3" style="margin-top:0;">
     <div>
-      <p class="body" style="margin-bottom:18px;">
-        This is not intuitive. Organisations and practitioners systematically prefer high-capacity, high-activity states — and are suspicious of the quiet, aware-but-blocked configuration.
+      <p class="body" style="margin-bottom:16px;">
+        Organisations and practitioners systematically prefer high-capacity, high-activity states — and are suspicious of the quiet, aware-but-blocked configuration.
       </p>
-      <p class="body" style="margin-bottom:18px;">
+      <p class="body" style="margin-bottom:16px;">
         But Abhimanyu preserves optionality. The model is intact. When capacity becomes available — through intervention, structural change, or resource provision — the system can act correctly <em>immediately</em>, because it already knows what to do.
       </p>
       <p class="body">
-        Hanuman does not have this property. Restoring capacity to a system without a valid model just gives it a faster machine pointed in the wrong direction. Each action takes the system further from the right answer and makes it harder to change course — committed errors accumulate.
+        Hanuman does not have this property. Restoring capacity to a system without a valid model just gives it a faster machine pointed in the wrong direction.
       </p>
     </div>
-    <div>
-      <div style="display:flex; flex-direction:column; gap:16px; margin-top:4px;">
-        <div style="padding:20px 24px; border:1px solid rgba(196,71,42,0.3); background:#fdf5f3;">
-          <div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--abh); margin-bottom:8px;">Abhimanyu — I+, A−</div>
-          <div style="font-size:13px; line-height:1.6; color:#2a2520;">
-            Crisis is deeper when it arrives. But recovery is faster. The model is still pointing correctly. One intervention — restoring A — is sufficient.
-          </div>
-        </div>
-        <div style="padding:20px 24px; border:1px solid rgba(42,107,74,0.3); background:#f0f7f3;">
-          <div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--han); margin-bottom:8px;">Hanuman — I−, A+</div>
-          <div style="font-size:13px; line-height:1.6; color:#2a2520;">
-            Crisis is shallower individually. But structurally persistent. Each action compounds the misallocation. Recovery requires two steps: stop the current trajectory, then rebuild the model.
-          </div>
-        </div>
-        <div style="padding:20px 24px; border:1px solid var(--border); background:var(--warm);">
-          <div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:8px;">The Critical Rule</div>
-          <div style="font-size:13px; line-height:1.6; color:#2a2520; font-style:italic; font-family:'Cormorant Garamond',serif; font-size:16px;">
-            Adding capacity to a Hanuman system before restoring its model is the most common and most costly intervention error.
-          </div>
+    <div style="display:flex; flex-direction:column; gap:14px; margin-top:4px;">
+      <div style="padding:18px 22px; border:1px solid rgba(196,71,42,0.3); background:#fdf5f3;">
+        <div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--abh); margin-bottom:8px;">Abhimanyu — I+, A−</div>
+        <div style="font-size:13px; line-height:1.6; color:#2a2520;">Crisis is deeper when it arrives. But recovery is faster. One intervention — restoring A — is sufficient.</div>
+      </div>
+      <div style="padding:18px 22px; border:1px solid rgba(42,107,74,0.3); background:#f0f7f3;">
+        <div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--han); margin-bottom:8px;">Hanuman — I−, A+</div>
+        <div style="font-size:13px; line-height:1.6; color:#2a2520;">Crisis is shallower individually. But structurally persistent. Recovery requires two steps: stop the current trajectory, then rebuild the model.</div>
+      </div>
+      <div style="padding:18px 22px; border:1px solid var(--border); background:var(--warm);">
+        <div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:8px;">The Critical Rule</div>
+        <div style="font-size:15px; line-height:1.5; color:#2a2520; font-style:italic; font-family:'Cormorant Garamond',serif;">
+          Adding capacity to a Hanuman system before restoring its model is the most common and most costly intervention error.
         </div>
       </div>
     </div>
@@ -1025,47 +1140,66 @@ strong { font-weight: 500; }
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 10 — THE SEQUENCING LAW -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 10 — THE SEQUENCING LAW ═══ -->
 <div class="slide">
   <span class="slide-num">10 / 15</span>
-  <div class="slide-tag">The Sequencing Law</div>
+  <div class="slide-tag reveal">The Sequencing Law</div>
   <div class="two-col-asym">
     <div>
-      <h2>State determines<br>sequence. Sequence<br>determines outcome.</h2>
-      <div class="rule"></div>
-      <p class="body" style="margin-bottom:24px;">
+      <h2 class="reveal reveal-delay-1">State determines<br>sequence. Sequence<br>determines outcome.</h2>
+      <div class="rule reveal reveal-delay-2"></div>
+      <p class="body reveal reveal-delay-2" style="margin-bottom:20px;">
         The central result of CARA is a sequencing law. Before selecting an intervention, you must know which of the two functions is the binding constraint — and address it first. Order is not a preference. It is structurally determined.
       </p>
-      <div class="pullquote" style="font-size:22px; margin-top:8px;">
+      <!-- Animated sequencing visual -->
+      <div class="reveal reveal-delay-3">
+        <svg width="100%" height="80" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0"   y="20" width="60"  height="40" rx="2" fill="rgba(14,12,10,0.05)" stroke="var(--border)" stroke-width="1"/>
+          <text x="30"  y="44" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="13" fill="var(--ink)">Diagnose</text>
+          <line x1="62" y1="40" x2="82" y2="40" stroke="var(--ink)" stroke-width="1.5" opacity="0.4" marker-end="url(#seq-arr)"/>
+          <defs>
+            <marker id="seq-arr" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto">
+              <path d="M0,0 L0,5 L5,2.5z" fill="var(--ink)" opacity="0.4"/>
+            </marker>
+          </defs>
+          <rect x="84"  y="20" width="60"  height="40" rx="2" fill="rgba(196,71,42,0.08)" stroke="rgba(196,71,42,0.3)" stroke-width="1"/>
+          <text x="114" y="44" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="13" fill="var(--abh)">State</text>
+          <line x1="146" y1="40" x2="166" y2="40" stroke="var(--ink)" stroke-width="1.5" opacity="0.4" marker-end="url(#seq-arr)"/>
+          <rect x="168" y="20" width="60"  height="40" rx="2" fill="rgba(42,107,74,0.08)" stroke="rgba(42,107,74,0.3)" stroke-width="1"/>
+          <text x="198" y="44" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="13" fill="var(--han)">Sequence</text>
+          <line x1="230" y1="40" x2="250" y2="40" stroke="var(--ink)" stroke-width="1.5" opacity="0.4" marker-end="url(#seq-arr)"/>
+          <rect x="252" y="20" width="48"  height="40" rx="2" fill="rgba(26,58,107,0.08)" stroke="rgba(26,58,107,0.3)" stroke-width="1"/>
+          <text x="276" y="44" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="13" fill="var(--peak)">Outcome</text>
+        </svg>
+      </div>
+      <div class="pullquote reveal reveal-delay-4" style="margin-top:16px;">
         The right intervention applied in the wrong order does not just underperform. It converts a recoverable state into a more dangerous one.
       </div>
     </div>
     <div>
       <div class="seq-steps">
-        <div class="seq-step">
+        <div class="seq-step reveal reveal-delay-2">
           <div class="seq-num">01</div>
           <div class="seq-content">
             <h4>Trooper State <span class="tag tag-dual">I− A−</span></h4>
-            <div class="seq-body">Build context awareness first. Always. Do not provide resources, action plans, or execution support before the system has an accurate model. Premature capacity becomes Hanuman Complex.</div>
+            <div class="seq-body">Build context awareness first. Always. Do not provide resources or action plans before the system has an accurate model. Premature capacity becomes Hanuman Complex.</div>
           </div>
         </div>
-        <div class="seq-step">
+        <div class="seq-step reveal reveal-delay-3">
           <div class="seq-num">02</div>
           <div class="seq-content">
-            <h4>Abhimanyu Conundrum <span class="tag tag-abh">I+ A−</span></h4>
+            <h4>Abhimanyu <span class="tag tag-abh">I+ A−</span></h4>
             <div class="seq-body">Restore response availability only. Do not add more awareness — the model is intact. Target the structural, environmental, or institutional constraints on execution.</div>
           </div>
         </div>
-        <div class="seq-step">
+        <div class="seq-step reveal reveal-delay-4">
           <div class="seq-num">03</div>
           <div class="seq-content">
-            <h4>Hanuman Complex <span class="tag tag-han">I− A+</span></h4>
+            <h4>Hanuman <span class="tag tag-han">I− A+</span></h4>
             <div class="seq-body">Stop adding capacity. Hard stop. Rebuild the model first. Only once context awareness is restored does additional response availability become productive.</div>
           </div>
         </div>
-        <div class="seq-step">
+        <div class="seq-step reveal reveal-delay-5">
           <div class="seq-num">04</div>
           <div class="seq-content">
             <h4>Arjuna State <span class="tag tag-peak">I+ A+</span></h4>
@@ -1078,241 +1212,217 @@ strong { font-weight: 500; }
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 11 — DYNAMICS: TRAJECTORY MATTERS -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 11 — DYNAMICS: TRAJECTORY ═══ -->
 <div class="slide">
   <span class="slide-num">11 / 15</span>
-  <div class="slide-tag">Beyond Snapshot — Trajectory</div>
-  <h2>Where a system is<br>matters less than<br>where it is going.</h2>
-  <div class="rule-accent"></div>
-  <p class="body" style="margin-bottom:32px; max-width:620px;">
-    State classification gives you position. Trajectory gives you momentum. Six recurring dynamic patterns emerge from how I and A are moving — each with a distinct risk profile and a distinct intervention logic.
+  <div class="slide-tag reveal">Beyond Snapshot — Trajectory</div>
+  <h2 class="reveal reveal-delay-1">Where a system is<br>matters less than<br>where it is going.</h2>
+  <div class="rule-accent reveal reveal-delay-2"></div>
+  <p class="body reveal reveal-delay-2" style="margin-bottom:28px; max-width:620px;">
+    State classification gives you position. Trajectory gives you momentum. Six recurring dynamic patterns emerge from how I and A are moving — each with a distinct risk profile and intervention logic.
   </p>
-  <table class="traj-table">
-    <thead>
-      <tr>
-        <th>Pattern</th>
-        <th>Signature</th>
-        <th>What it means</th>
-        <th>Intervention</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><div class="traj-name">Bubble</div><div style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;">Precursor</div></td>
-        <td style="font-size:12px;">I stable, A falling from positive</td>
-        <td style="font-size:13px; color:#3a3530;">System in false alignment. A quietly eroding while I holds. The warning arrives before the state changes.</td>
-        <td style="font-size:12px; color:var(--gold);">Watch. Do not prop A artificially.</td>
-      </tr>
-      <tr>
-        <td><div class="traj-name">Late Cycle</div></td>
-        <td style="font-size:12px;">I high, A just crossed zero</td>
-        <td style="font-size:13px; color:#3a3530;">The internal break has happened. I still elevated. System at highest near-term risk.</td>
-        <td style="font-size:12px;" class="traj-risk-high">Urgent. Force model update first.</td>
-      </tr>
-      <tr>
-        <td><div class="traj-name">Trapped<br>Frustration</div></td>
-        <td style="font-size:12px;">I high, A negative and worsening</td>
-        <td style="font-size:13px; color:#3a3530;">Model intact, execution collapsing with no floor. Highest forward risk of all patterns.</td>
-        <td style="font-size:12px;" class="traj-risk-high">Emergency A-restoration only.</td>
-      </tr>
-      <tr>
-        <td><div class="traj-name">Freefall</div></td>
-        <td style="font-size:12px;">Both I and A collapsing</td>
-        <td style="font-size:13px; color:#3a3530;">Active breakdown. No leading variable. Triage mode.</td>
-        <td style="font-size:12px;" class="traj-risk-high">Minimum viable A to stop bleeding. Then I.</td>
-      </tr>
-      <tr>
-        <td><div class="traj-name">Blind<br>Acceleration</div></td>
-        <td style="font-size:12px;">I negative, A rising</td>
-        <td style="font-size:13px; color:#3a3530;">Capacity growing without a valid model. Committed errors accumulating with each action.</td>
-        <td style="font-size:12px;" class="traj-risk-medium">Hard stop on A. Rebuild I completely first.</td>
-      </tr>
-      <tr>
-        <td><div class="traj-name">Recovery<br>Signal</div></td>
-        <td style="font-size:12px;">I turning up, A still low</td>
-        <td style="font-size:13px; color:#3a3530;">I-led recovery underway. Correct sequence. Fragile — do not rush.</td>
-        <td style="font-size:12px;" class="traj-risk-build">Protect the I recovery. Let A follow naturally.</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="traj-scroll reveal reveal-delay-3">
+    <table class="traj-table">
+      <thead>
+        <tr>
+          <th>Pattern</th>
+          <th>Signature</th>
+          <th>What it means</th>
+          <th>Intervention</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="traj-name">Bubble</div><div style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;">Precursor</div></td>
+          <td style="font-size:12px;">I stable, A falling from positive</td>
+          <td style="font-size:13px; color:#3a3530;">System in false alignment. A quietly eroding while I holds. The warning arrives before the state changes.</td>
+          <td style="font-size:12px; color:var(--gold);">Watch. Do not prop A artificially.</td>
+        </tr>
+        <tr>
+          <td><div class="traj-name">Late Cycle</div></td>
+          <td style="font-size:12px;">I high, A just crossed zero</td>
+          <td style="font-size:13px; color:#3a3530;">The internal break has happened. I still elevated. System at highest near-term risk.</td>
+          <td style="font-size:12px;" class="traj-risk-high">Urgent. Force model update first.</td>
+        </tr>
+        <tr>
+          <td><div class="traj-name">Trapped<br>Frustration</div></td>
+          <td style="font-size:12px;">I high, A negative and worsening</td>
+          <td style="font-size:13px; color:#3a3530;">Model intact, execution collapsing. Highest forward risk of all patterns.</td>
+          <td style="font-size:12px;" class="traj-risk-high">Emergency A-restoration only.</td>
+        </tr>
+        <tr>
+          <td><div class="traj-name">Freefall</div></td>
+          <td style="font-size:12px;">Both I and A collapsing</td>
+          <td style="font-size:13px; color:#3a3530;">Active breakdown. No leading variable. Triage mode.</td>
+          <td style="font-size:12px;" class="traj-risk-high">Minimum viable A to stop bleeding. Then I.</td>
+        </tr>
+        <tr>
+          <td><div class="traj-name">Blind<br>Acceleration</div></td>
+          <td style="font-size:12px;">I negative, A rising</td>
+          <td style="font-size:13px; color:#3a3530;">Capacity growing without a valid model. Committed errors accumulating with each action.</td>
+          <td style="font-size:12px;" class="traj-risk-medium">Hard stop on A. Rebuild I completely first.</td>
+        </tr>
+        <tr>
+          <td><div class="traj-name">Recovery<br>Signal</div></td>
+          <td style="font-size:12px;">I turning up, A still low</td>
+          <td style="font-size:13px; color:#3a3530;">I-led recovery underway. Correct sequence. Fragile — do not rush.</td>
+          <td style="font-size:12px;" class="traj-risk-build">Protect the I recovery. Let A follow naturally.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 12 — CASE STUDY: ORGANISATIONS -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 12 — CASE STUDY: ORGANISATIONS ═══ -->
 <div class="slide">
   <span class="slide-num">12 / 15</span>
-  <div class="slide-tag">Application — Organisational Change</div>
-  <h2>Why transformation<br>programmes stall.</h2>
-  <div class="rule"></div>
-
-  <div class="case-study">
+  <div class="slide-tag reveal">Application — Organisational Change</div>
+  <h2 class="reveal reveal-delay-1">Why transformation<br>programmes stall.</h2>
+  <div class="rule reveal reveal-delay-2"></div>
+  <div class="case-study reveal reveal-delay-3">
     <div class="case-label">Case Study</div>
     <div class="case-title">The Restructuring That Generated More Problems</div>
-    <p style="font-size:14px; line-height:1.7; color:#2a2520; margin-bottom:20px;">
+    <p style="font-size:14px; line-height:1.7; color:#2a2520; margin-bottom:18px;">
       A mid-size professional services firm launches a strategic transformation. New operating model, new incentive structures, new technology platform. Board-level support, adequate budget, experienced consultants. By every resource measure, the conditions are right.
     </p>
     <div class="case-grid">
       <div>
         <div class="case-col-head">The CARA Diagnosis</div>
-        <div class="case-col-body">
-          The leadership team had an accurate model of the <em>problem</em> (client model was outdated, margins declining). But the middle layer — team leads, practice heads — had no accurate model of <em>why the changes were necessary or what the new model required of them</em>.
-          <br><br>
-          I was high at the top. I was low where execution lived. The organisation was simultaneously Abhimanyu (top) and Trooper (middle).
-        </div>
+        <div class="case-col-body">The leadership team had an accurate model of the <em>problem</em>. But the middle layer — team leads, practice heads — had no accurate model of why the changes were necessary or what the new model required of them.
+          <br><br>I was high at the top. I was low where execution lived. The organisation was simultaneously Abhimanyu (top) and Trooper (middle).</div>
       </div>
       <div>
         <div class="case-col-head">What Was Applied</div>
-        <div class="case-col-body">
-          Significant A-restoration: restructuring, new systems, new processes, new accountabilities. Cascaded fast.
-          <br><br>
-          This is the classic Hanuman error applied at scale. Response availability was forced into a layer of the organisation whose context awareness had not been built. The new systems were used to execute the old mental models. Committed errors accumulated.
-        </div>
+        <div class="case-col-body">Significant A-restoration: restructuring, new systems, new processes, new accountabilities. Cascaded fast.
+          <br><br>This is the classic Hanuman error at scale. Response availability was forced into a layer whose context awareness had not been built. The new systems executed the old mental models.</div>
       </div>
       <div>
         <div class="case-col-head">The CARA Prescription</div>
-        <div class="case-col-body">
-          Delay A-restoration by one cycle. Run an intensive I-building phase with middle leadership first — not information cascade, but genuine model-building: what are we actually trying to do, why does this structure enable it, what does success look like in your role?
-          <br><br>
-          Only once I is stable at the execution layer does A-restoration produce alignment rather than faster misallocation.
-        </div>
+        <div class="case-col-body">Delay A-restoration by one cycle. Run an intensive I-building phase with middle leadership first — genuine model-building, not information cascade.
+          <br><br>Only once I is stable at the execution layer does A-restoration produce alignment rather than faster misallocation.</div>
       </div>
     </div>
   </div>
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 13 — CASE STUDY: BEHAVIOUR & DEVELOPMENT -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 13 — CASE STUDY: BEHAVIOUR & POLICY ═══ -->
 <div class="slide">
   <span class="slide-num">13 / 15</span>
-  <div class="slide-tag">Application — Behaviour Change &amp; Policy</div>
-  <h2>The two most common<br>intervention errors.</h2>
-  <div class="rule-accent"></div>
+  <div class="slide-tag reveal">Application — Behaviour Change &amp; Policy</div>
+  <h2 class="reveal reveal-delay-1">The two most common<br>intervention errors.</h2>
+  <div class="rule-accent reveal reveal-delay-2"></div>
 
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:8px;">
-    <div>
-      <div class="case-study" style="margin:0; border-left-color:var(--han); background:#f0f7f3;">
-        <div class="case-label" style="color:var(--han);">Error Type 1 — Behaviour Change</div>
-        <div class="case-title" style="font-size:18px; margin-bottom:12px;">Action planning for Trooper-state clients</div>
-        <p style="font-size:13px; line-height:1.7; color:#2a2520; margin-bottom:14px;">
-          The most common error in behaviour change practice. A person enters support in Trooper state — low accurate self-model of what drives their behaviour, constrained environment. The practitioner, using COM-B or Fogg, correctly identifies low capability and low opportunity.
-        </p>
-        <p style="font-size:13px; line-height:1.7; color:#2a2520; margin-bottom:14px;">
-          The standard response is an action plan, implementation intentions, and resource provision. This is A-restoration for a system without adequate I.
-        </p>
-        <p style="font-size:13px; line-height:1.7; color:#2a2520;">
-          The action plan gets used to execute the person's existing — inaccurate — model of their situation. It produces activity that looks like engagement and produces no change.
-        </p>
-        <div style="margin-top:14px; padding-top:12px; border-top:1px solid rgba(42,107,74,0.2); font-family:'DM Mono',monospace; font-size:11px; color:var(--han);">
-          → CARA: Build I first. Motivational Interviewing is an I-restoration tool. Deploy it fully before any action planning.
-        </div>
+  <div class="myth-cards-grid reveal reveal-delay-3" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:8px;">
+    <div class="case-study" style="margin:0; border-left-color:var(--han); background:#f0f7f3;">
+      <div class="case-label" style="color:var(--han);">Error Type 1 — Behaviour Change</div>
+      <div class="case-title" style="font-size:17px; margin-bottom:12px;">Action planning for Trooper-state clients</div>
+      <p style="font-size:13px; line-height:1.7; color:#2a2520; margin-bottom:12px;">
+        The most common error in behaviour change practice. A person enters support in Trooper state — low accurate self-model of what drives their behaviour, constrained environment. The practitioner correctly identifies low capability and low opportunity.
+      </p>
+      <p style="font-size:13px; line-height:1.7; color:#2a2520; margin-bottom:12px;">
+        The standard response is an action plan and resource provision. This is A-restoration for a system without adequate I.
+      </p>
+      <p style="font-size:13px; line-height:1.7; color:#2a2520;">
+        The action plan gets used to execute the person's existing — inaccurate — model of their situation. It produces activity that looks like engagement and produces no change.
+      </p>
+      <div style="margin-top:14px; padding-top:12px; border-top:1px solid rgba(42,107,74,0.2); font-family:'DM Mono',monospace; font-size:11px; color:var(--han);">
+        → CARA: Build I first. Motivational Interviewing is an I-restoration tool. Deploy it fully before any action planning.
       </div>
     </div>
 
-    <div>
-      <div class="case-study" style="margin:0; border-left-color:var(--abh); background:#fdf5f3;">
-        <div class="case-label" style="color:var(--abh);">Error Type 2 — Development Policy</div>
-        <div class="case-title" style="font-size:18px; margin-bottom:12px;">Awareness campaigns for Abhimanyu communities</div>
-        <p style="font-size:13px; line-height:1.7; color:#2a2520; margin-bottom:14px;">
-          A second common error, running in the opposite direction. A community — or population — has an accurate model of their situation. They understand the health risk, the economic constraint, the structural injustice. They are in Abhimanyu state.
-        </p>
-        <p style="font-size:13px; line-height:1.7; color:#2a2520; margin-bottom:14px;">
-          The intervention is an awareness campaign, a psychoeducation programme, an information resource. More I-building for a system where I is not the constraint.
-        </p>
-        <p style="font-size:13px; line-height:1.7; color:#2a2520;">
-          The community knows about the food desert, the underfunded school, the inaccessible healthcare. Telling them about it again — however elegantly — changes nothing.
-        </p>
-        <div style="margin-top:14px; padding-top:12px; border-top:1px solid rgba(196,71,42,0.2); font-family:'DM Mono',monospace; font-size:11px; color:var(--abh);">
-          → CARA: They are Abhimanyu. The constraint is A. Build delivery, access, structural opportunity — not awareness.
-        </div>
+    <div class="case-study" style="margin:0; border-left-color:var(--abh); background:#fdf5f3;">
+      <div class="case-label" style="color:var(--abh);">Error Type 2 — Development Policy</div>
+      <div class="case-title" style="font-size:17px; margin-bottom:12px;">Awareness campaigns for Abhimanyu communities</div>
+      <p style="font-size:13px; line-height:1.7; color:#2a2520; margin-bottom:12px;">
+        A community has an accurate model of their situation. They understand the health risk, the economic constraint, the structural injustice. They are in Abhimanyu state.
+      </p>
+      <p style="font-size:13px; line-height:1.7; color:#2a2520; margin-bottom:12px;">
+        The intervention is an awareness campaign, a psychoeducation programme. More I-building for a system where I is not the constraint.
+      </p>
+      <p style="font-size:13px; line-height:1.7; color:#2a2520;">
+        The community knows about the food desert, the underfunded school, the inaccessible healthcare. Telling them about it again — however elegantly — changes nothing.
+      </p>
+      <div style="margin-top:14px; padding-top:12px; border-top:1px solid rgba(196,71,42,0.2); font-family:'DM Mono',monospace; font-size:11px; color:var(--abh);">
+        → CARA: They are Abhimanyu. The constraint is A. Build delivery, access, structural opportunity — not awareness.
       </div>
     </div>
   </div>
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 14 — HOW TO USE CARA -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 14 — HOW TO USE CARA ═══ -->
 <div class="slide">
   <span class="slide-num">14 / 15</span>
-  <div class="slide-tag">The CARA Protocol</div>
-  <h2>CARA as a diagnostic<br>prior to intervention.</h2>
-  <div class="rule"></div>
-  <p class="body" style="margin-bottom:36px; max-width:600px;">
+  <div class="slide-tag reveal">The CARA Protocol</div>
+  <h2 class="reveal reveal-delay-1">CARA as a diagnostic<br>prior to intervention.</h2>
+  <div class="rule reveal reveal-delay-2"></div>
+  <p class="body reveal reveal-delay-2" style="margin-bottom:28px; max-width:600px;">
     CARA does not replace COM-B, Fogg, or any domain framework. It runs before them. It tells you which section of the tool library to open — and which sections will make things worse.
   </p>
 
-  <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:0; border:1px solid var(--border);">
-    <div style="padding:24px 20px; border-right:1px solid var(--border); background:var(--warm);">
-      <div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:12px;">Step 01</div>
-      <h3 style="font-size:18px; margin-bottom:10px;">Assess I</h3>
-      <p style="font-size:12px; line-height:1.6; color:#3a3530;">How accurate is the system's current model of its situation? Can it correctly describe the drivers of its behaviour and anticipate consequences?</p>
+  <div class="protocol-steps reveal reveal-delay-3">
+    <div class="proto-step">
+      <div class="proto-num">Step 01</div>
+      <div class="proto-title">Assess I</div>
+      <div class="proto-body">How accurate is the system's current model of its situation? Can it correctly describe the drivers of its behaviour and anticipate consequences?</div>
     </div>
-    <div style="padding:24px 20px; border-right:1px solid var(--border);">
-      <div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:12px;">Step 02</div>
-      <h3 style="font-size:18px; margin-bottom:10px;">Assess A</h3>
-      <p style="font-size:12px; line-height:1.6; color:#3a3530;">What structural constraints and enablers actually exist? What is the system's real degree of freedom to act — not self-reported confidence, but environmental reality?</p>
+    <div class="proto-step">
+      <div class="proto-num">Step 02</div>
+      <div class="proto-title">Assess A</div>
+      <div class="proto-body">What structural constraints and enablers actually exist? What is the real degree of freedom to act — not self-reported confidence, but environmental reality?</div>
     </div>
-    <div style="padding:24px 20px; border-right:1px solid var(--border); background:var(--warm);">
-      <div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:12px;">Step 03</div>
-      <h3 style="font-size:18px; margin-bottom:10px;">Classify State</h3>
-      <p style="font-size:12px; line-height:1.6; color:#3a3530;">From the signs of I and A, assign one of the four states. This is the diagnostic output — not an intervention recommendation yet.</p>
+    <div class="proto-step">
+      <div class="proto-num">Step 03</div>
+      <div class="proto-title">Classify State</div>
+      <div class="proto-body">From the signs of I and A, assign one of the four states. This is the diagnostic output — not an intervention recommendation yet.</div>
     </div>
-    <div style="padding:24px 20px; border-right:1px solid var(--border);">
-      <div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:12px;">Step 04</div>
-      <h3 style="font-size:18px; margin-bottom:10px;">Read Trajectory</h3>
-      <p style="font-size:12px; line-height:1.6; color:#3a3530;">Is I improving, stable, or falling? Is A improving, stable, or falling? Which direction is the gap moving? This tells you urgency and sequence.</p>
+    <div class="proto-step">
+      <div class="proto-num">Step 04</div>
+      <div class="proto-title">Read Trajectory</div>
+      <div class="proto-body">Is I improving, stable, or falling? Is A improving, stable, or falling? Which direction is the gap moving? This tells you urgency and sequence.</div>
     </div>
-    <div style="padding:24px 20px; background:var(--warm);">
-      <div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:12px;">Step 05</div>
-      <h3 style="font-size:18px; margin-bottom:10px;">Then Intervene</h3>
-      <p style="font-size:12px; line-height:1.6; color:#3a3530;">Now reach for the domain tool library. CARA tells you which category — I-building, A-restoration, maintenance, or triage. The specific technique is domain knowledge.</p>
+    <div class="proto-step">
+      <div class="proto-num">Step 05</div>
+      <div class="proto-title">Then Intervene</div>
+      <div class="proto-body">Now reach for the domain tool library. CARA tells you which category — I-building, A-restoration, maintenance, or triage. The specific technique is domain knowledge.</div>
     </div>
   </div>
 
-  <div class="highlight-box" style="margin-top:28px;">
+  <div class="highlight-box reveal reveal-delay-4" style="margin-top:24px;">
     <div class="hb-label">Monitor</div>
     <div class="hb-text">After any intervention, monitor I first. Context awareness degrades before response availability in every domain studied. Behaviour change is a lagging signal. Model drift is the early warning.</div>
   </div>
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SLIDE 15 — CLOSING -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══ SLIDE 15 — CLOSING ═══ -->
 <div class="slide closing">
-  <span class="slide-num" style="color:rgba(245,240,232,0.3);">15 / 15</span>
-  <div class="slide-tag" style="color:rgba(245,240,232,0.4);">The Theory</div>
-  <h2>A general theory of<br>intervention sequencing.</h2>
-  <div class="rule" style="background:var(--accent);"></div>
-  <p class="lead" style="color:rgba(245,240,232,0.75); margin-bottom:32px; max-width:640px;">
+  <span class="slide-num" style="color:rgba(245,240,232,0.25);">15 / 15</span>
+  <div class="slide-tag reveal" style="color:rgba(245,240,232,0.4);">The Theory</div>
+  <h2 class="reveal reveal-delay-1">A general theory of<br>intervention sequencing.</h2>
+  <div class="rule reveal reveal-delay-2" style="background:var(--accent);"></div>
+  <p class="lead reveal reveal-delay-2" style="color:rgba(245,240,232,0.75); margin-bottom:28px; max-width:640px;">
     CARA is not a replacement for domain expertise. It is the question that must come before domain expertise is applied. What state is the system in? Which function is the binding constraint? What direction is each moving?
   </p>
-  <p style="font-size:14px; line-height:1.75; color:rgba(245,240,232,0.55); max-width:580px; margin-bottom:0;">
+  <p class="reveal reveal-delay-3" style="font-size:14px; line-height:1.75; color:rgba(245,240,232,0.5); max-width:580px; margin-bottom:0;">
     The framework has been validated across macroeconomic systems, political institutions, immune response, governance, education, and individual behaviour — consistently showing that state and trajectory determine intervention responsiveness, and that misidentifying state converts well-resourced interventions into committed errors.
   </p>
-
-  <div class="closing-line">
+  <div class="closing-line reveal reveal-delay-4">
     It does not tell systems what to do.<br>
     It tells them how not to fail while trying.
   </div>
-
-  <div style="margin-top:48px; display:flex; gap:40px; align-items:center;">
+  <div class="closing-footer reveal reveal-delay-5" style="margin-top:44px; display:flex; gap:36px; align-items:center; flex-wrap:wrap;">
     <div>
       <div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,240,232,0.3); margin-bottom:8px;">The Framework</div>
       <div style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:300; color:var(--paper); letter-spacing:0.08em;">CARA</div>
       <div style="font-family:'DM Mono',monospace; font-size:10px; color:rgba(245,240,232,0.4); letter-spacing:0.1em; margin-top:4px;">Context Awareness · Response Availability</div>
     </div>
-    <div style="width:1px; height:48px; background:rgba(245,240,232,0.15);"></div>
+    <div class="closing-divider" style="width:1px; height:44px; background:rgba(245,240,232,0.15);"></div>
     <div>
       <div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,240,232,0.3); margin-bottom:8px;">The States</div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
         <span style="font-family:'DM Mono',monospace; font-size:10px; padding:3px 9px; border:1px solid rgba(26,58,107,0.6); color:rgba(180,200,230,0.8); border-radius:1px;">Arjuna</span>
         <span style="font-family:'DM Mono',monospace; font-size:10px; padding:3px 9px; border:1px solid rgba(196,71,42,0.6); color:rgba(230,160,140,0.8); border-radius:1px;">Abhimanyu</span>
         <span style="font-family:'DM Mono',monospace; font-size:10px; padding:3px 9px; border:1px solid rgba(42,107,74,0.6); color:rgba(140,200,160,0.8); border-radius:1px;">Hanuman</span>
@@ -1323,5 +1433,40 @@ strong { font-weight: 500; }
 </div>
 
 </div><!-- end deck -->
+
+<script>
+// ── SCROLL REVEAL ──────────────────────────────────────────────
+const revealEls = document.querySelectorAll('.reveal');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Animate bars when they become visible
+      const bars = entry.target.querySelectorAll('.bar-fill');
+      bars.forEach(bar => {
+        const w = bar.dataset.width;
+        if (w) bar.style.width = w + '%';
+      });
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+revealEls.forEach(el => observer.observe(el));
+
+// Also trigger bars on any reveal that contains bars when revealed
+document.querySelectorAll('.bar-fill').forEach(bar => {
+  const parent = bar.closest('.reveal');
+  if (!parent) {
+    const w = bar.dataset.width;
+    if (w) bar.style.width = w + '%';
+  }
+});
+
+// ── COVER IMMEDIATE REVEAL ─────────────────────────────────────
+document.querySelectorAll('.cover .reveal').forEach((el, i) => {
+  setTimeout(() => el.classList.add('visible'), 200 + i * 150);
+});
+</script>
 </body>
 </html>
